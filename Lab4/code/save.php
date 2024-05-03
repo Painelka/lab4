@@ -31,19 +31,13 @@ catch (\Google\Exception $e)
 $service = new Google_Service_Sheets($client);
 $spreadsheetId = "1SIro9lyvc5gQJIdyUHrJaE0KTCeMxENqUiNNsQgq0QQ";
 
+$range = "List1";
+$values =[[$category, $name, $email, $desc],];
+$body = new Google_Service_Sheets_ValueRange(['values' => $values]);
+$row = sizeof(($service->spreadsheets_values->get($sheetID, $range))->getValues()) + 1;
+$params = ['valueInputOption'=>'RAW'];
 
 
-
-
-
-
-
-
-$filePath ="categories/{$category}/{$title}.txt";
-if (false === file_put_contents($filePath, $description)){
-    throw new Exception(message: 'Something went wrong.');
-}
-chmod($filePath, 0777);
 redirectToHome();
 
 
