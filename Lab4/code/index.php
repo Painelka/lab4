@@ -48,22 +48,23 @@
     $client->setAccessType('ofline');
     try
     {
-        $client->setAuthConfig(__DIR__ . '/web-lab4-422209-76913d7c4a42.json');
+        $client->setAuthConfig('C:\Users\Софья\Desktop\lab4\Lab4\code\credentials.json');
     }
     catch (\Google\Exception $e)
     {
         echo "Ошибка\n";
     }
-    $client->setAuthConfig('C:\Users\Софья\Desktop\lab4\Lab4\code\credentials.json');
+
     $service = new Google_Service_Sheets($client);
     $spreadsheetId = "1SIro9lyvc5gQJIdyUHrJaE0KTCeMxENqUiNNsQgq0QQ";
     ?>
-    
+
 </div>
 
 <div id ="table">
     <table border="1" width="400">
         <thead >
+        <?php
         $range1 = "List1!A1:C1";
         $result1 = null;
         try {
@@ -78,33 +79,30 @@
                     echo "<th>$item</th>";
                 }
             }
+        ?>
         </thead>
         <tbody>
         <?php
-        $cat = opendir('categories');
-        while ($file = readdir($cat))
+        $range2 = "Pets!A2:D999";
+        $result2 = null;
+        try
         {
-            if ((is_dir('categories/'.$file)) && ($file != '.') && ($file != '..'))
+            $result2 = ($service->spreadsheets_values->get($sheetID, $range2))->getValues();
+        }
+        catch (\Google\Service\Exception $e)
+        {
+            echo "Ошибка при получении данных в таблицу\n";
+        }
+        if (null != $result2)
+        {
+            foreach ($result2 as $row)
             {
-                $dog = opendir('categories/'.$file);
-                while ($add = readdir($dog))
+                echo "<tr>";
+                foreach ($row as $item)
                 {
-                    if ($add != '.' && $add != '..')
-                    {
-                        $fop = fopen('categories/'.$file.'/'.$add, 'r');
-                        $kov = "";
-                        while ($line = fgets($fop))
-                        {
-                            $kov .= $line;
-                        }
-                        fclose($fop);
-                        echo '<tr>'; // Вывод
-                        echo "<td>$file</td>";
-                        echo "<td>".substr($add, 0, strlen($add) - 4)."</td>";
-                        echo "<td>$kov</td>";
-                        echo '</tr>';
-                    }
+                    echo "<td>", $item, "</td>";
                 }
+                echo "</tr>";
             }
         }
         ?>
