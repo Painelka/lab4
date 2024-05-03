@@ -1,12 +1,12 @@
 <?php
 
-require _DIR_ . '/Lab4/code/vendor/autoload.php';
+require  'C:\Users\Софья\Desktop\lab4\Lab4\code\vendor\autoload.php';
 
 $client = new \Google_Client();
 $client->setApplicationName('Google sheets and php');
 $client->setScopes([\Google_Service_Sheets::SPREADSHEETS]);
 $client->setAccessType('ofline');
-$client->setAuthConfig(_DIR_.'/credentials.json');
+$client->setAuthConfig('C:\Users\Софья\Desktop\lab4\Lab4\code\credentials.json');
 $service = new Google_Service_Sheets($client);
 $spreadsheetId = "1SIro9lyvc5gQJIdyUHrJaE0KTCeMxENqUiNNsQgq0QQ";
 
