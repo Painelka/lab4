@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 function redirectToHome(): void
 {
     header( header:'Location: /');
@@ -32,7 +32,7 @@ $service = new Google_Service_Sheets($client);
 $spreadsheetId = "1SIro9lyvc5gQJIdyUHrJaE0KTCeMxENqUiNNsQgq0QQ";
 
 $range = "List1";
-$values =[[$category, $email, $title, $$description],];
+$values =[[$category, $email, $title, $description],];
 $body = new Google_Service_Sheets_ValueRange(['values' => $values]);
 $row = sizeof(($service->spreadsheets_values->get($spreadsheetId , $range))->getValues()) + 1;
 $params = ['valueInputOption'=>'RAW'];
