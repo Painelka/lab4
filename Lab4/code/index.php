@@ -41,14 +41,14 @@
         <input type ="submit" value = "save">
     </form>
     <?php
-    require  'C:\Users\Софья\Desktop\lab4\Lab4\code\vendor\autoload.php';
+    require  'vendor/autoload.php';
     $client = new \Google_Client();
     $client->setApplicationName('Google sheets and php');
     $client->setScopes([\Google_Service_Sheets::SPREADSHEETS]);
     $client->setAccessType('ofline');
     try
     {
-        $client->setAuthConfig('C:\Users\Софья\Desktop\lab4\Lab4\code\credentials.json');
+        $client->setAuthConfig('credentials.json');
     }
     catch (\Google\Exception $e)
     {
@@ -65,10 +65,10 @@
     <table border="1" width="400">
         <thead >
         <?php
-        $range1 = "List1!A1:C1";
+        $range1 = "List1!A1:D1";
         $result1 = null;
         try {
-            $result1 = ($service->spreadsheets_values->get($sheetID, $range1))->getValues();
+            $result1 = ($service->spreadsheets_values->get($spreadsheetId, $range1))->getValues();
         }
         catch (\Google\Service\Exception $e) {
             echo "Ошибка при получении заголовков в таблицу\n";
@@ -77,17 +77,17 @@
             foreach ($result1 as $row) {
                 foreach ($row as $item)
                     echo "<th>$item</th>";
-                }
             }
+        }
         ?>
         </thead>
         <tbody>
         <?php
-        $range2 = "Pets!A2:D999";
+        $range2 = "List1!A2:D999";
         $result2 = null;
         try
         {
-            $result2 = ($service->spreadsheets_values->get($sheetID, $range2))->getValues();
+            $result2 = ($service->spreadsheets_values->get($spreadsheetId, $range2))->getValues();
         }
         catch (\Google\Service\Exception $e)
         {
