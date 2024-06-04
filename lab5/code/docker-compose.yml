@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./code:/code
+      - ./site.conf:/etc/nginx/conf.d/site.conf
+    links:
+      - php
+  php:
+    build: .
+    volumes:
+      - ./code:/code
+    depends_on:
+      - daab
+    links:
+      - daab
+  daab:
+    image: mysql:8.0
+    ports:
+      - '33060:3306'
