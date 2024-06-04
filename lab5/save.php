@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__ . '/pain.php';
 function redirectToHome(): void
 {
     header( header:'Location: /');
