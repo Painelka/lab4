@@ -52,7 +52,18 @@ $category = ['doll', 'other', 'writer'];
         </thead>
         <tbody>
         <?php
-  
+        $db = extracted();
+        foreach ($db->query("SELECT * FROM web.ad") as $row)
+        {
+            $category = $row['category'];
+            $title = $row['title'];
+            $description = $row['description'];
+            $email = $row['email'];
+            echo "<tr><td>" . $category . " </td>";
+            echo "<td>" . $title . " </td>";
+            echo "<td>" . $description . " </td></tr>";
+            echo "<td>" . $email . " </td></tr>";
+        }
         ?>
 
         </tbody>
